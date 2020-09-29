@@ -6,4 +6,5 @@ Python3
 <br> pip install termcolor
 
 # Running 
-python main3.py
+Ganti base path dengan lokasi yg akan di terjemahkan
+<br>python main3.py
