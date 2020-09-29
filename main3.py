@@ -117,7 +117,7 @@ def warna(icon, msg, color):
 
 
 def main():
-    base_path = "/home/hafizd/Desktop/SQL Crash Course for beginners - Learn SQL with MySQL"
+    base_path = ""
 
     cari_seluruh_file_srt(base_path)
 
