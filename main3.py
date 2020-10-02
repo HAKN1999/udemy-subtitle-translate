@@ -23,6 +23,7 @@ def cari_seluruh_file_srt(base_path):
     list_dir = os.listdir(base_path)
 
     # masuk ketiap folder dan cari file srt
+
     for i in range(0, len(list_dir)):
         os.chdir(base_path+"/"+list_dir[i])
         current_dir = os.getcwd()
@@ -87,6 +88,7 @@ def terjemahkan_file(path, list_dir, nfile):
     warna(START, "Sedang menterjemahkan file: {name_file}".format(
         name_file=nfile), GREEN)
 
+    # detect
     with open("{path}".format(path=path), 'r') as read_file:
         for i, name in enumerate(read_file.readlines()):
             translate_file.append(ts.translate(name.strip(), dest="id").text)
@@ -112,14 +114,14 @@ def pindahkan_file_srt_ori(path, dest_path):
     """setelah file berhasil diterjemahkan pindah kan file original subtittles ke folder backup"""
 
     print()
-    warna(START, "Mencoba memindahkan file dari: {path}".format(
-        path=path), RED)
+    warna(START, "Mencoba memindahkan file dari".upper(), RED)
+    warna(START, "{}".format(path), YELLOW)
 
     os.system("mv '{source_path}' '{dest_path}'".format(
         source_path=path, dest_path=dest_path))
 
-    warna(CHECK, "File telah berhasil di pindahkan ke folder backup {path}".format(
-        path=path), RED)
+    warna(CHECK, "File telah berhasil dipindahkan".upper(), RED)
+    warna(START, "{}".format(dest_path), YELLOW)
     print()
 
 
