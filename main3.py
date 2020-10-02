@@ -129,11 +129,8 @@ def warna(icon, msg, color):
 
 
 def main():
-<<<<<<< HEAD
+
     base_path = "/home/hafizd/Desktop/How to create Telegram bots with Python. No-Nonsense Guide"
-=======
-    base_path = ""
->>>>>>> 0b2663f44c88fd6bdb020051dea8e7114545ed9b
 
     cari_seluruh_file_srt(base_path)
 
