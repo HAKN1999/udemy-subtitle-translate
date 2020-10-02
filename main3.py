@@ -27,10 +27,14 @@ def cari_seluruh_file_srt(base_path):
         os.chdir(base_path+"/"+list_dir[i])
         current_dir = os.getcwd()
         # print lokasi dir yg sedang aktif
+        print()
+        print(" base-path ".upper().center(80, "="))
         warna(START, "{}".format(current_dir), RED)
+        print("".upper().center(80, "="))
+        print()
 
         # membuat folder backup file srt original
-        membuat_folder_backup_subtitle(current_dir)
+        membuat_folder_backup_subtitle(current_dir, list_dir[i])
 
         # mencari semua file srt di
         for path, dirs, files in os.walk(current_dir):
@@ -48,7 +52,7 @@ def cari_seluruh_file_srt(base_path):
 
                     # bagian terjemahkan file
                     # terjemahkan_file(current_dir+nfile)
-                    datas = terjemahkan_file(path_file)
+                    datas = terjemahkan_file(path_file, list_dir[i], nfile)
 
                     # setelah file berhasil di terjemahkan
                     # pindahkan file ke folder backup
@@ -71,44 +75,52 @@ def tulis_hasil_translate(path_file, data):
         f.write(data + '\n')
 
 
-def terjemahkan_file(path):
+def terjemahkan_file(path, list_dir, nfile):
     """terjemahkan file srt"""
 
     # hasil dari terjemahan akan di simpan di list
     translate_file = []
 
-    warna(START, "Sedang menterjemahkan file: {path}".format(path=path), BLUE)
+    print()
+    warna(CHECK, "aktif di di folder: {}".format(list_dir).upper(), RED)
+    print("".upper().center(80, "="))
+    warna(START, "Sedang menterjemahkan file: {name_file}".format(
+        name_file=nfile), GREEN)
 
     with open("{path}".format(path=path), 'r') as read_file:
         for i, name in enumerate(read_file.readlines()):
             translate_file.append(ts.translate(name.strip(), dest="id").text)
 
-    warna(CHECK, "Berhasil di terjemahkan: {path}".format(path=path), BLUE)
+    warna(CHECK, "Berhasil di terjemahkan: {name_file}".format(
+        name_file=nfile), GREEN)
 
     return translate_file
 
 
-def membuat_folder_backup_subtitle(path):
+def membuat_folder_backup_subtitle(path, name_folder):
     """membuat folder backup setelah file srt di terjemahkan"""
 
     try:
-        warna(START, "Membuat folder backup", GREEN)
+        warna(START, "Membuat folder backup di: {}".format(name_folder), GREEN)
         os.makedirs(r"{path}/{folder}".format(path=path, folder=FOLDER_NAME))
     except Exception as e:
         warna(CHECK, "Folder backup telah dibuat", GREEN)
+    print()
 
 
 def pindahkan_file_srt_ori(path, dest_path):
     """setelah file berhasil diterjemahkan pindah kan file original subtittles ke folder backup"""
 
-    warna(START, "Mencoba memindahkan file srt dari {path}".format(
-        path=path), YELLOW)
+    print()
+    warna(START, "Mencoba memindahkan file dari: {path}".format(
+        path=path), RED)
 
     os.system("mv '{source_path}' '{dest_path}'".format(
         source_path=path, dest_path=dest_path))
 
     warna(CHECK, "File telah berhasil di pindahkan ke folder backup {path}".format(
-        path=path), YELLOW)
+        path=path), RED)
+    print()
 
 
 def warna(icon, msg, color):
@@ -117,7 +129,7 @@ def warna(icon, msg, color):
 
 
 def main():
-    base_path = "/home/hafizd/Desktop/SQL Crash Course for beginners - Learn SQL with MySQL"
+    base_path = "/home/hafizd/Desktop/How to create Telegram bots with Python. No-Nonsense Guide"
 
     cari_seluruh_file_srt(base_path)
 
